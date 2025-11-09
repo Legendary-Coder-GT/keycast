@@ -31,27 +31,23 @@ git clone https://github.com/<you>/keycast.git
 cd keycast
 
 # 2) (Recommended) Create & activate a virtual environment
-python -m venv .venv
+python3 -m venv .venv
 # macOS/Linux:
 . .venv/bin/activate
 # Windows (PowerShell):
 # .\\.venv\\Scripts\\Activate.ps1
 
 # 3) Install dependencies
-python -m pip install --upgrade pip
-python -m pip install pygame
+python3 -m pip install --upgrade pip
+python3 -m pip install pygame
 ```
 
-> If you prefer a global, isolated install for CLI-like use, you can use `pipx install .` after you add packaging metadata. For simple use, running via `python` is sufficient.
+> If you prefer a global, isolated install for CLI-like use, you can use `pipx install .` after you add packaging metadata.
 
 ### Run
 ```bash
 # From the project root:
-python run.py
-```
-If you prefer module form:
-```bash
-python -m src.keycast.app  # if you expose a __main__, otherwise use run.py
+python3 main.py
 ```
 
 ---
@@ -194,23 +190,5 @@ keycast/
 
 ---
 
-## Troubleshooting
-
-**The window is blank or crashes on start**  
-- Ensure Pygame is installed: `python -m pip show pygame`  
-- Try a lower resolution in `settings.ini` (`width=800`, `height=500`)
-
-**Keyboard input seems off / no characters appear**  
-- Make sure the Pygame window is focused (click the window once)  
-- Some international layouts may require additional handling; try US layout
-
-**Backspace doesn’t work**  
-- By design in the default training mode; set `backspace_enabled = true` in `settings.ini` to allow corrections
-
-**Session files aren’t saving**  
-- Confirm that `data/sessions/` exists and you have write permissions  
-- Check the console for a path error; create the folder manually if needed
-
-**High CPU usage**  
-- The app caps FPS at `fps` in settings; try `fps=60` or lower
+Thanks for trying out my game. I've always loved working on my typing skills, and I hope you enjoyed this as much as I have!
 
