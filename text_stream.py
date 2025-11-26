@@ -92,10 +92,31 @@ class TextStream(pygame.sprite.Sprite):
                 y += self.line_height
                 continue
 
+            # If this is the start of a word, check if it fits; wrap before it if needed.
+            is_word_char = char not in (" ", "\t", "\n")
+            prev_char = self.content[idx - 1] if idx > 0 else " "
+            starting_word = is_word_char and prev_char in (" ", "\t", "\n")
+            if starting_word:
+                end = idx
+                while end < len(self.content) and self.content[end] not in (" ", "\t", "\n"):
+                    end += 1
+                word = self.content[idx:end]
+                word_width, _ = self.font.size(word)
+                if x > start_x and x + word_width > start_x + max_width:
+                    x = start_x
+                    y += self.line_height
+
             char_width, _ = self.font.size(char)
+            # For extremely long single words, fall back to mid-word wrap.
             if x + char_width > start_x + max_width:
                 x = start_x
                 y += self.line_height
+
+            if char == "\n":
+                positions.append((idx, char, x, y, 0))
+                x = start_x
+                y += self.line_height
+                continue
 
             positions.append((idx, char, x, y, char_width))
             x += char_width
